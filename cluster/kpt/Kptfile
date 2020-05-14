@@ -1,0 +1,8 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: .
+packageMetadata:
+  tags:
+  - kpt.dev/app=ceph
+  shortDescription: kpt Ceph package
