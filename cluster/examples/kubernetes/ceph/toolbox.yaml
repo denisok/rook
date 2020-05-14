@@ -18,32 +18,32 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: rook-ceph-tools
-        image: rook/ceph:v1.3.2
+        image: registry.suse.de/devel/storage/7.0/cr/containers/ses/7/rook/ceph:1.3.1 # {"$ref":"#/definitions/io.k8s.cli.substitutions.rook-image"}
         command: ["/tini"]
-        args: ["-g", "--", "/usr/local/bin/toolbox.sh"]
+        args: ["-g", "--", "/usr/bin/toolbox.sh"]
         imagePullPolicy: IfNotPresent
         env:
-          - name: ROOK_ADMIN_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: rook-ceph-mon
-                key: admin-secret
+        - name: ROOK_ADMIN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: rook-ceph-mon
+              key: admin-secret
         volumeMounts:
-          - mountPath: /etc/ceph
-            name: ceph-config
-          - name: mon-endpoint-volume
-            mountPath: /etc/rook
-      volumes:
+        - mountPath: /etc/ceph
+          name: ceph-config
         - name: mon-endpoint-volume
-          configMap:
-            name: rook-ceph-mon-endpoints
-            items:
-            - key: data
-              path: mon-endpoints
-        - name: ceph-config
-          emptyDir: {}
+          mountPath: /etc/rook
+      volumes:
+      - name: mon-endpoint-volume
+        configMap:
+          name: rook-ceph-mon-endpoints
+          items:
+          - key: data
+            path: mon-endpoints
+      - name: ceph-config
+        emptyDir: {}
       tolerations:
-        - key: "node.kubernetes.io/unreachable"
-          operator: "Exists"
-          effect: "NoExecute"
-          tolerationSeconds: 5
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 5
