@@ -1,0 +1,70 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: rook-ceph
+packageMetadata:
+  tags:
+  - kpt.dev/app=rook-ceph
+  shortDescription: kpt rook-ceph package
+openAPI:
+  definitions:
+    io.k8s.cli.setters.rook-img-path:
+      x-k8s-cli:
+        setter:
+          name: rook-img-path
+          value: rook/ceph
+    io.k8s.cli.setters.rook-img-tag:
+      x-k8s-cli:
+        setter:
+          name: rook-img-tag
+          value: 1.3.3
+    io.k8s.cli.substitutions.rook-image:
+      x-k8s-cli:
+        substitution:
+          name: rook-image
+          pattern: ${rook-img-path}:${rook-img-tag}
+          values:
+          - marker: ${rook-img-path}
+            ref: '#/definitions/io.k8s.cli.setters.rook-img-path'
+          - marker: ${rook-img-tag}
+            ref: '#/definitions/io.k8s.cli.setters.rook-img-tag'
+    io.k8s.cli.setters.ceph-img-path:
+      x-k8s-cli:
+        setter:
+          name: ceph-img-path
+          value: ceph/ceph
+    io.k8s.cli.setters.ceph-img-tag:
+      x-k8s-cli:
+        setter:
+          name: ceph-img-tag
+          value: v14.2.9
+    io.k8s.cli.substitutions.ceph-image:
+      x-k8s-cli:
+        substitution:
+          name: ceph-image
+          pattern: ${ceph-img-path}:${ceph-img-tag}
+          values:
+          - marker: ${ceph-img-path}
+            ref: '#/definitions/io.k8s.cli.setters.ceph-img-path'
+          - marker: ${ceph-img-tag}
+            ref: '#/definitions/io.k8s.cli.setters.ceph-img-tag'
+    io.k8s.cli.setters.cephcsi-img-tag:
+      x-k8s-cli:
+        setter:
+          name: cephcsi-img-tag
+          value: v2.1.1
+    io.k8s.cli.setters.cephcsi-img-path:
+      x-k8s-cli:
+        setter:
+          name: cephcsi-img-path
+          value: quay.io/cephcsi/cephcsi
+    io.k8s.cli.substitutions.cephcsi-image:
+      x-k8s-cli:
+        substitution:
+          name: cephcsi-image
+          pattern: ${cephcsi-img-path}:${cephcsi-img-tag}
+          values:
+          - marker: ${cephcsi-img-path}
+            ref: '#/definitions/io.k8s.cli.setters.cephcsi-img-path'
+          - marker: ${cephcsi-img-tag}
+            ref: '#/definitions/io.k8s.cli.setters.cephcsi-img-tag'

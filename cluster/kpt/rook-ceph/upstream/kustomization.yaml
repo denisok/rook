@@ -1,0 +1,4 @@
+resources:
+  - common.yaml
+  - operator.yaml
+  - cluster.yaml

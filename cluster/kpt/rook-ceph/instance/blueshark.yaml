@@ -1,0 +1,56 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  placement:
+    mon:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: role.ceph
+              operator: In
+              values:
+              - gw
+  network:
+    provider: host
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    devices:
+    - name: "sdb"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "sdc"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "sdd"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "sde"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "sdf"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "sdg"
+      config:
+        metadataDevice: "nvme0n1"
+        walSizeMB: "65536"
+    - name: "nvme1n1"
+    nodes:
+    - name: blueshark-4.ses.suse.de
+    - name: blueshark-5.ses.suse.de
+    - name: blueshark-6.ses.suse.de
+    - name: blueshark-7.ses.suse.de
+    - name: blueshark-8.ses.suse.de
