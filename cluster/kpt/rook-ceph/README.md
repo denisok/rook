@@ -15,7 +15,7 @@ kpt rook-сeph package
 
 ## Get package
 
-`kpt pkg get https://github.com/denisok/rook/cluster/kpt/rook-ceph@kpt/v1.3.3 rook-ceph`
+`kpt pkg get https://github.com/denisok/rook/cluster/kpt/rook-ceph@rook-ceph/v1.3.3 rook-ceph`
 
 ## Configuration
 

@@ -2,16 +2,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 bases:
   - ../upstream
-resources:
-  - toolbox.yaml
-patchesJson6902:
+# commenting out patch json as kpt has a bug:
+# https://github.com/GoogleContainerTools/kpt/issues/506
+# https://github.com/GoogleContainerTools/kpt/issues/510
+# it is here as example and will be uncommented later
+#resources:
+#  - toolbox.yaml
+#patchesJson6902:
 # bindir is different for suse distros
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: rook-ceph-tools
-      namespace: rook-ceph
-    path: suse_toolbox.yaml
+#  - target:
+#      group: apps
+#      version: v1
+#      kind: Deployment
+#      name: rook-ceph-tools
+#      namespace: rook-ceph
+#    path: suse_toolbox.yaml
 patchesStrategicMerge:
   - blueshark.yaml

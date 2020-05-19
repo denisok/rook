@@ -1,3 +1,4 @@
-- op: replace
-  path: /spec/template/spec/containers/0/args
-  value: ["-g", "--", "/usr/bin/toolbox.sh"]
+# bindir is different for suse distros
+#- op: replace
+#  path: /spec/template/spec/containers/0/args
+#  value: ["-g", "--", "/usr/bin/toolbox.sh"]
