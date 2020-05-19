@@ -6,15 +6,12 @@ resources:
   - toolbox.yaml
 patchesJson6902:
 # bindir is different for suse distros
-- target:
-    group: apps
-    version: v1
-    kind: Deployment
-    name: rook-ceph-tools
-    namespace: rook-ceph
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/args
-      value: ["-g", "--", "/usr/bin/toolbox.sh"]
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: rook-ceph-tools
+      namespace: rook-ceph
+    path: suse_toolbox.yaml
 patchesStrategicMerge:
   - blueshark.yaml
